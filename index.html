@@ -21,7 +21,7 @@
 <body>
     <div id="top-wrap-container"></div>
     <script>
-        fetch('top-wrap.html')
+        fetch('components/top-wrap.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('top-wrap-container').innerHTML = data;
