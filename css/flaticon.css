@@ -30,19 +30,10 @@
     -moz-osx-font-smoothing: grayscale;
   }
   
-  .flaticon-clock:before { content: "\f100"; }
-  .flaticon-telephone:before { content: "\f101"; }
-  .flaticon-pin:before { content: "\f102"; }
-  .flaticon-booking:before { content: "\f103"; }
-  .flaticon-dentist:before { content: "\f104"; }
-  .flaticon-offer:before { content: "\f105"; }
-  .flaticon-tooth:before { content: "\f106"; }
-  .flaticon-crown:before { content: "\f107"; }
-  .flaticon-dental-care:before { content: "\f108"; }
-  .flaticon-tooth-1:before { content: "\f109"; }
-  .flaticon-calculus:before { content: "\f10a"; }
-  .flaticon-removal:before { content: "\f10b"; }
-  .flaticon-dental-care-1:before { content: "\f10c"; }
-  .flaticon-affection:before { content: "\f10d"; }
-  .flaticon-gum:before { content: "\f10e"; }
-  .flaticon-calendar:before { content: "\f10f"; }
+  .flaticon-emergency-call:before { content: "\f100"; }
+  .flaticon-dentist:before { content: "\f101"; }
+  .flaticon-dentist-chair:before { content: "\f102"; }
+  .flaticon-experiment-results:before { content: "\f103"; }
+  .flaticon-user-experience:before { content: "\f104"; }
+  .flaticon-calendar:before { content: "\f105"; }
+  .flaticon-guarantee:before { content: "\f106"; }

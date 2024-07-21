@@ -1,204 +1,254 @@
-(function() {
+(function($) {
 
 	"use strict";
 
-	AOS.init({
-		ease: 'slide',
-		once: true
-	});
-
-	var slider = function(){
-
-		var heroSlider = document.querySelectorAll('.hero-slider');
-
-		if ( heroSlider.length > 0 ) {
-			var heroSlider = tns({
-				container: '.hero-slider',
-				items: 1,
-				mode: 'carousel',
-				autoplay: true,
-			  animateIn: 'tns-fadeIn',
-		    animateOut: 'tns-fadeOut',
-				speed: 700,
-				nav: true,
-				controls: false,
-				autoplayButtonOutput: false,
-			});
-		}
-
-		var carouselCourses = document.querySelectorAll('.carousel-courses');
-		if ( carouselCourses.length > 0 ) {
-
-			var coursesSlider = tns({
-				container: '.carousel-courses',
-				items: 1,
-				mode: 'carousel',
-				autoplay: true,
-			  animateIn: 'tns-fadeIn',
-		    animateOut: 'tns-fadeOut',
-				speed: 700,
-				nav: true,
-				gutter: 20,
-				controls: false,
-				autoHeight: true,
-				autoplayButtonOutput: false,
-				responsive:{
-					0:{
-						items: 1,
-						gutter: 0
-					},
-					600:{
-						items: 2,
-						gutter: 20
-					},
-					1000:{
-						items: 3,
-						gutter: 20
-					}
-				}
-			});
-
-		}
-
-		var carouselSlider = document.querySelectorAll('.carousel-testimony');
-		if ( carouselSlider.length > 0 ) {
-
-			var testimonySlider = tns({
-				container: '.carousel-testimony',
-				items: 1,
-				mode: 'carousel',
-				autoplay: true,
-			  animateIn: 'tns-fadeIn',
-		    animateOut: 'tns-fadeOut',
-				speed: 700,
-				nav: true,
-				gutter: 20,
-				controls: false,
-				autoplayButtonOutput: false,
-				responsive:{
-					0:{
-						items: 1,
-						gutter: 0
-					},
-					600:{
-						items: 2,
-						gutter: 20
-					},
-					1000:{
-						items: 3,
-						gutter: 20
-					}
-				}
-			});
-
-		}
-
-	}
-	slider();
-	
-	//COUNTER
-	'use trict';
-		// How long you want the animation to take, in ms
-		const animationDuration = 2000;
-		// Calculate how long each ‘frame’ should last if we want to update the animation 60 times per second
-		const frameDuration = 1000 / 60;
-		// Use that to calculate how many frames we need to complete the animation
-		const totalFrames = Math.round( animationDuration / frameDuration );
-		// An ease-out function that slows the count as it progresses
-		const easeOutQuad = t => t * ( 2 - t );
+	$(window).stellar({
+    responsive: true,
+    parallaxBackgrounds: true,
+    parallaxElements: true,
+    horizontalScrolling: false,
+    hideDistantElements: false,
+    scrollProperty: 'scroll'
+  });
 
 
-		const numberWithCommas = n => {
-			return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		}
+	var fullHeight = function() {
 
-		// The animation function, which takes an Element
-		const animateCountUp = el => {
-			let frame = 0;
-			const countTo = parseInt( el.innerHTML, 10 );
-			// Start the animation running 60 times per second
-			const counter = setInterval( () => {
-			frame++;
-			// Calculate our progress as a value between 0 and 1
-			// Pass that value to our easing function to get our
-			// progress on a curve
-			const progress = easeOutQuad( frame / totalFrames );
-			// Use the progress value to calculate the current count
-			const currentCount = Math.round( countTo * progress );
+		$('.js-fullheight').css('height', $(window).height());
+		$(window).resize(function(){
+			$('.js-fullheight').css('height', $(window).height());
+		});
 
-			// If the current count has changed, update the element
-			if ( parseInt( el.innerHTML, 10 ) !== currentCount ) {
-			el.innerHTML = numberWithCommas(currentCount);
-		}
+	};
+	fullHeight();
 
-		// If we’ve reached our last frame, stop the animation
-		if ( frame === totalFrames ) {
-			clearInterval( counter );
-		}
-		}, frameDuration );
-		};
-
-		// Run the animation on all elements with a class of ‘countup’
-		const runAnimations = () => {
-			const countupEls = document.querySelectorAll( '.countup' );
-			countupEls.forEach( animateCountUp );
-		};
-
-
-
-
-		// In Viewed
-		var elements;
-		var windowHeight;
-
-		function init() {
-			elements = document.querySelectorAll('.section-counter');
-			windowHeight = window.innerHeight;
-		}
-
-		function checkPosition() {
-			var i;
-			for (i = 0; i < elements.length; i++) {
-				var element = elements[i];
-				var positionFromTop = elements[i].getBoundingClientRect().top;
-			if (positionFromTop - windowHeight <= 0) {
-			if( !element.classList.contains('viewed') ) {
-			element.classList.add('viewed');
-			runAnimations();
-			} else {
-			if ( element.classList.contains('viewed') ) {
-
+	// loader
+	var loader = function() {
+		setTimeout(function() { 
+			if($('#ftco-loader').length > 0) {
+				$('#ftco-loader').removeClass('show');
 			}
-		}
+		}, 1);
+	};
+	loader();
 
-		}
-		}
-		}
+	// Scrollax
+   $.Scrollax();
 
-		window.addEventListener('scroll', checkPosition);
-		window.addEventListener('resize', init);
+	var carousel = function() {
+		$('.home-slider').owlCarousel({
+	    loop:true,
+	    autoplay: true,
+	    margin:0,
+	    animateOut: 'fadeOut',
+	    animateIn: 'fadeIn',
+	    nav:true,
+	    dots: true,
+	    autoplayHoverPause: false,
+	    items: 1,
+	    navText : ["<span class='ion-ios-arrow-back'></span>","<span class='ion-ios-arrow-forward'></span>"],
+	    responsive:{
+	      0:{
+	        items:1
+	      },
+	      600:{
+	        items:1
+	      },
+	      1000:{
+	        items:1
+	      }
+	    }
+		});
+		$('.carousel-testimony').owlCarousel({
+			center: false,
+			loop: true,
+			items:1,
+			margin: 30,
+			stagePadding: 0,
+			nav: false,
+			navText: ['<span class="ion-ios-arrow-back">', '<span class="ion-ios-arrow-forward">'],
+			responsive:{
+				0:{
+					items: 1
+				},
+				600:{
+					items: 2
+				},
+				1000:{
+					items: 4
+				}
+			}
+		});
 
-		init();
-		checkPosition();
+	};
+	carousel();
 
-
-	//GLIGHTBOX
-	const lightbox = GLightbox({
-	  touchNavigation: true,
-	  loop: true,
-	  autoplayVideos: true
+	$('nav .dropdown').hover(function(){
+		var $this = $(this);
+		// 	 timer;
+		// clearTimeout(timer);
+		$this.addClass('show');
+		$this.find('> a').attr('aria-expanded', true);
+		// $this.find('.dropdown-menu').addClass('animated-fast fadeInUp show');
+		$this.find('.dropdown-menu').addClass('show');
+	}, function(){
+		var $this = $(this);
+			// timer;
+		// timer = setTimeout(function(){
+			$this.removeClass('show');
+			$this.find('> a').attr('aria-expanded', false);
+			// $this.find('.dropdown-menu').removeClass('animated-fast fadeInUp show');
+			$this.find('.dropdown-menu').removeClass('show');
+		// }, 100);
 	});
 
-	//DATEPICKER
-	var datePicker = function() {
-		const arrivalDate = document.querySelector('.arrival_date');
-		const datepicker = new Datepicker(arrivalDate, {
-		  // ...options
-		}); 
+
+	$('#dropdown04').on('show.bs.dropdown', function () {
+	  console.log('show');
+	});
+
+	// scroll
+	var scrollWindow = function() {
+		$(window).scroll(function(){
+			var $w = $(this),
+					st = $w.scrollTop(),
+					navbar = $('.ftco_navbar'),
+					sd = $('.js-scroll-wrap');
+
+			if (st > 150) {
+				if ( !navbar.hasClass('scrolled') ) {
+					navbar.addClass('scrolled');	
+				}
+			} 
+			if (st < 150) {
+				if ( navbar.hasClass('scrolled') ) {
+					navbar.removeClass('scrolled sleep');
+				}
+			} 
+			if ( st > 350 ) {
+				if ( !navbar.hasClass('awake') ) {
+					navbar.addClass('awake');	
+				}
+				
+				if(sd.length > 0) {
+					sd.addClass('sleep');
+				}
+			}
+			if ( st < 350 ) {
+				if ( navbar.hasClass('awake') ) {
+					navbar.removeClass('awake');
+					navbar.addClass('sleep');
+				}
+				if(sd.length > 0) {
+					sd.removeClass('sleep');
+				}
+			}
+		});
+	};
+	scrollWindow();
+
+	var counter = function() {
+		
+		$('#section-counter, .ftco-about, .ftco-counter').waypoint( function( direction ) {
+
+			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
+
+				var comma_separator_number_step = $.animateNumber.numberStepFactories.separator(',')
+				$('.number').each(function(){
+					var $this = $(this),
+						num = $this.data('number');
+						console.log(num);
+					$this.animateNumber(
+					  {
+					    number: num,
+					    numberStep: comma_separator_number_step
+					  }, 7000
+					);
+				});
+				
+			}
+
+		} , { offset: '95%' } );
 
 	}
-	datePicker();
+	counter();
 
 
-})()
+	var contentWayPoint = function() {
+		var i = 0;
+		$('.ftco-animate').waypoint( function( direction ) {
+
+			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
+				
+				i++;
+
+				$(this.element).addClass('item-animate');
+				setTimeout(function(){
+
+					$('body .ftco-animate.item-animate').each(function(k){
+						var el = $(this);
+						setTimeout( function () {
+							var effect = el.data('animate-effect');
+							if ( effect === 'fadeIn') {
+								el.addClass('fadeIn ftco-animated');
+							} else if ( effect === 'fadeInLeft') {
+								el.addClass('fadeInLeft ftco-animated');
+							} else if ( effect === 'fadeInRight') {
+								el.addClass('fadeInRight ftco-animated');
+							} else {
+								el.addClass('fadeInUp ftco-animated');
+							}
+							el.removeClass('item-animate');
+						},  k * 50, 'easeInOutExpo' );
+					});
+					
+				}, 100);
+				
+			}
+
+		} , { offset: '95%' } );
+	};
+	contentWayPoint();
+
+
+	// magnific popup
+	$('.image-popup').magnificPopup({
+    type: 'image',
+    closeOnContentClick: true,
+    closeBtnInside: false,
+    fixedContentPos: true,
+    mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+     gallery: {
+      enabled: true,
+      navigateByImgClick: true,
+      preload: [0,1] // Will preload 0 - before current, and 1 after the current image
+    },
+    image: {
+      verticalFit: true
+    },
+    zoom: {
+      enabled: true,
+      duration: 300 // don't foget to change the duration also in CSS
+    }
+  });
+
+  $('.popup-youtube, .popup-vimeo, .popup-gmaps').magnificPopup({
+    disableOn: 700,
+    type: 'iframe',
+    mainClass: 'mfp-fade',
+    removalDelay: 160,
+    preloader: false,
+
+    fixedContentPos: false
+  });
+
+  $('.appointment_date').datepicker({
+	  'format': 'm/d/yyyy',
+	  'autoclose': true
+	});
+	$('.appointment_time').timepicker();
+
+
+
+})(jQuery);
 
